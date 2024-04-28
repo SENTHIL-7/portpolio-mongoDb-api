@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
-    required: true,
+    // required: true,
     trim: true
   },
   email: {
@@ -31,8 +31,8 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
-    minlength: 8, // Enforce password strength
+    // required: true,
+    // minlength: 8, // Enforce password strength
     select: false // Exclude from GET requests for security
   },
   modified: {

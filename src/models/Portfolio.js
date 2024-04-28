@@ -4,19 +4,24 @@ const mongoose = require('mongoose');
 const portfolioSchema = new mongoose.Schema({
   portfolioName: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
     unique: true,
+  },
+  userPortfolioId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference the Portfolio model
+    // required: true
   },
   selectedThemeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ThemeStore', // Reference the Theme model (assuming you have one)
-    required: true
+    // required: true
   },
-  themeId: {
+  userThemeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UserTheme', // Reference the Theme model (assuming you have one)
-    required: false
+    // required: false
   },
   modified: {
     type: Date,

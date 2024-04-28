@@ -15,7 +15,11 @@ app.use(express.json());
 const v1 = require('./routes/v1');
 app.use('/v1', v1);
 
-const User = require("./models/User");
+// const User = require("./models/User");
+// require("./models/User");
+// require("./models/Portfolio");
+// require("./models/Themestore");
+// require("./models/Usertheme");
 // User.create({
 //   firstName: "senthil kumar",
 //   lastName:"p",
@@ -37,6 +41,7 @@ const User = require("./models/User");
   //       .then(() => console.log('Recreated database and collections'));
   //   });
   // }
+  // console.log(config.mongodb_uri)
 // Start the server
 app.listen(config.port, () => {
   console.log(`Server is running on port ${config.port}`);

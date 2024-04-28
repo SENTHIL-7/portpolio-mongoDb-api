@@ -3,30 +3,34 @@ const mongoose = require('mongoose');
 const themeStoreSchema = new mongoose.Schema({
   themeName: {
     type: String,
-    required: true,
-    unique: true,
+    // required: true,
+    // unique: true,
     trim: true
   },
+  themeId: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Portfolio', 
+  }],
   themeLabel: {
     type: String,
-    required: true,
+    // required: true,
     trim: true
   },
   themeImage: {
     type: String, // URL or GridFS storage
-    required: true
+    // required: true
   },
   homePage: {
     type: mongoose.Schema.Types.Mixed, // JSON object for home page structure
-    required: true
+    // required: true
   },
   aboutusPage: {
     type: mongoose.Schema.Types.Mixed, // JSON object for about us page structure
-    required: true
+    // required: true
   },
   contactusPage: {
     type: mongoose.Schema.Types.Mixed, // JSON object for contact us page structure
-    required: true
+    // required: true
   },
   modified: {
     type: Date,

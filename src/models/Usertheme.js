@@ -16,17 +16,22 @@ const userThemeSchema = new mongoose.Schema({
 //     type: String, // URL or GridFS storage
 //     required: true
 //   },
+ userThemeId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'Portfolio', // Reference the Theme model (assuming you have one)
+  // required: false
+ },
   homePage: {
     type: mongoose.Schema.Types.Mixed, // JSON object for home page structure
-    required: true
+    // required: true
   },
   aboutusPage: {
     type: mongoose.Schema.Types.Mixed, // JSON object for about us page structure
-    required: true
+    // required: true
   },
   contactusPage: {
     type: mongoose.Schema.Types.Mixed, // JSON object for contact us page structure
-    required: true
+    // required: true
   },
   modified: {
     type: Date,
