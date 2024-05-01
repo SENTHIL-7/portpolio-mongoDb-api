@@ -1,26 +1,27 @@
 const mongoose = require('mongoose');
 
-const userThemeSchema = new mongoose.Schema({
-//   themeName: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//     trim: true
-//   },
-//   themeLabel: {
-//     type: String,
-//     required: true,
-//     trim: true
-//   },
-//   themeImage: {
-//     type: String, // URL or GridFS storage
-//     required: true
-//   },
- userThemeId: {
+const editThemeSchema = new mongoose.Schema({
+ userPortfolioId: {
   type: mongoose.Schema.Types.ObjectId,
   ref: 'Portfolio', // Reference the Theme model (assuming you have one)
   // required: false
  },
+ themeId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'ThemeStore', // Reference the Theme model (assuming you have one)
+  // required: true
+  },
+  themeName: {
+    type: String,
+    // required: true,
+    // unique: true,
+    trim: true
+  },
+  themeLabel: {
+    type: String,
+    // required: true,
+    trim: true
+  },
   homePage: {
     type: mongoose.Schema.Types.Mixed, // JSON object for home page structure
     // required: true
@@ -33,6 +34,14 @@ const userThemeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.Mixed, // JSON object for contact us page structure
     // required: true
   },
+  isEdited: {
+    type: Boolean,
+    default: true
+  },
+  isPublished: {
+    type: Boolean,
+    default: false
+  },
   modified: {
     type: Date,
     default: Date.now
@@ -43,6 +52,6 @@ const userThemeSchema = new mongoose.Schema({
   }
 });
 
-const UserTheme = mongoose.model('UserTheme', userThemeSchema);
+const UserTheme = mongoose.model('EditTheme', editThemeSchema);
 
 module.exports = UserTheme;

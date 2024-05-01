@@ -19,7 +19,8 @@ app.use('/v1', v1);
 // require("./models/User");
 // require("./models/Portfolio");
 // require("./models/Themestore");
-// require("./models/Usertheme");
+// require("./models/EditTheme");
+// require("./models/PublishedTheme");
 // User.create({
 //   firstName: "senthil kumar",
 //   lastName:"p",

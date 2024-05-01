@@ -4,15 +4,7 @@ const User = require('../models/User');
 const exampleService = require('../services/exampleService');
 
 
-//
-exports.getUsers = async (req, res) => {
-    try {
-      const users = await exampleService.getUsers();
-      res.json(users);
-    } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  };
+
   exports.getHome = async (req, res) => {
     let  HomePage = [
       {

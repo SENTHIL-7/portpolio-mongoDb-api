@@ -8,19 +8,19 @@ const portfolioSchema = new mongoose.Schema({
     trim: true,
     unique: true,
   },
-  userPortfolioId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Reference the Portfolio model
-    // required: true
-  },
   selectedThemeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ThemeStore', // Reference the Theme model (assuming you have one)
     // required: true
   },
-  userThemeId: {
+  editThemeId:[ {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserTheme', // Reference the Theme model (assuming you have one)
+    ref: 'EditTheme', // Reference the Theme model (assuming you have one)
+    // required: false
+  }],
+  publishThemeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'PublishedTheme', // Reference the Theme model (assuming you have one)
     // required: false
   },
   modified: {

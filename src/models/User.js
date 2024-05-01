@@ -37,11 +37,12 @@ const userSchema = new mongoose.Schema({
   },
   modified: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   created: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    immutable:true
   },
   portfolioId: {
     type: mongoose.Schema.Types.ObjectId,
