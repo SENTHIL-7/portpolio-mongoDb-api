@@ -1,0 +1,96 @@
+# name: Deploy to Render
+
+# on:
+#   push:
+#     branches: [ main ]  # Trigger on pushes to the master branch (adjust as needed)
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest  # Replace with a suitable runner OS if needed
+#     steps:
+#       - uses: actions/checkout@v3  # Checkout your code from GitHub
+
+#       - name: Install dependencies
+#         run: npm install  # Adjust for your package manager (yarn, pnpm)
+
+#       - name: Build the application
+#         run: npm run build  # Adjust for your build command
+
+#       - name: Create a Render Secret (optional)
+#         env:
+#           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Replace with your Render API key
+#         run: |
+#           echo "RENDER_SERVICE_NAME=${{ secrets.RENDER_SERVICE_NAME }}" >> $GITHUB_ENV  # Name of your Render service
+#           echo "RENDER_DEPLOY_BRANCH=${{ github.ref }}" >> $GITHUB_ENV  # Branch being deployed (optional)
+
+#       - name: Deploy to Render
+#         uses: rendr/render-deploy@v1.4.0  # GitHub Action for Render deployment
+#         with:
+#           api_key: ${{ secrets.RENDER_API_KEY }}
+#           service: ${{ secrets.RENDER_SERVICE_NAME }}
+#           branch: ${{ secrets.RENDER_DEPLOY_BRANCH }}  # Optional, use environment variable if needed
+#           # Uncomment these lines if your app needs environment variables from Render
+#           # env:
+#           #   MY_VARIABLE_1: ${{ secrets.MY_VARIABLE_1 }}
+#           #   MY_VARIABLE_2: ${{ secrets.MY_VARIABLE_2 }}
+
+#       # - name: Push to Render (optional)
+#       #   uses: rendr/render-push@v1.1.0  # Optional step to push latest image (if building Docker images)
+#       #   with:
+#       #     api_key: ${{ secrets.RENDER_API_KEY }}
+#       #     service: ${{ secrets.RENDER_SERVICE_NAME }}
+
+name: Node.JS CI/CD
+
+on:
+  push:
+    branches: [main]
+
+
+jobs:
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    strategy: 
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3 # was "v2" before 
+        with: 
+          fetch-depth: 0
+
+      - name: Use Node.JS ${{ matrix.node-version }}
+        uses: actions/setup-node@v3 # was "v2" before
+        with: 
+          node-version: ${{ matrix.node-version }}
+
+      - name: NPM install, build and test
+        run: |
+          npm install
+          npm run 
+          npm test
+        env: 
+          # DBHOST: ${{ secrets.DBHOST }}
+          # TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+          # JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
+          PORT: ${{ secrets.PORT }}
+          PRODUCTION: ${{ secrets.PRODUCTION }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+
+  # Heavily modified deploy job to fit render.com
+  deploy:
+    name: Deploy
+    # needs: [test] # Our tests must pass in order to run the deploy job
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.SERVICE_ID }} # Can be found as part of the Deploy Hook
+          api-key: ${{ secrets.RENDER_API_KEY }} # Create your API key in Render Dashboard > Account Settings
