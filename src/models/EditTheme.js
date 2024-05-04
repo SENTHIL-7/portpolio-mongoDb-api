@@ -1,24 +1,26 @@
 const mongoose = require('mongoose');
 
-const themeStoreSchema = new mongoose.Schema({
+const editThemeSchema = new mongoose.Schema({
+ userPortfolioId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'Portfolio', // Reference the Theme model (assuming you have one)
+  // required: false
+ },
+ themeId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'ThemeStore', // Reference the Theme model (assuming you have one)
+  // required: true
+  },
   themeName: {
     type: String,
     // required: true,
     // unique: true,
     trim: true
   },
-  themeId: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Portfolio', 
-  }],
   themeLabel: {
     type: String,
     // required: true,
     trim: true
-  },
-  themeImage: {
-    type: String, // URL or GridFS storage
-    // required: true
   },
   homePage: {
     type: mongoose.Schema.Types.Mixed, // JSON object for home page structure
@@ -32,6 +34,14 @@ const themeStoreSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.Mixed, // JSON object for contact us page structure
     // required: true
   },
+  isEdited: {
+    type: Boolean,
+    default: true
+  },
+  isPublished: {
+    type: Boolean,
+    default: false
+  },
   modified: {
     type: Date,
     default: Date.now
@@ -42,6 +52,6 @@ const themeStoreSchema = new mongoose.Schema({
   }
 });
 
-const ThemeStore = mongoose.model('ThemeStore', themeStoreSchema);
+const UserTheme = mongoose.model('EditTheme', editThemeSchema);
 
-module.exports = ThemeStore;
+module.exports = UserTheme;
